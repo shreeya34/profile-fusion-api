@@ -15,3 +15,4 @@ class Profile(Base):
     social_links = Column(JSONB)  # For storing social media links as JSON
     created_at = Column(DateTime, default=datetime.utcnow)
     updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+    

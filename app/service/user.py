@@ -19,3 +19,11 @@ class UserService:
         db.commit()
         db.refresh(new_user)
         return new_user
+    
+    @staticmethod
+    def get_user_by_username(db: Session, username: str):
+        return db.query(User).filter(User.username == username).first()
+
+    @staticmethod
+    def get_user_by_email(db: Session, email: str):
+        return db.query(User).filter(User.email == email).first()
