@@ -1,6 +1,7 @@
-import datetime
+from datetime import datetime  # Correct import
 from sqlalchemy import Column, DateTime, ForeignKey, Integer, String, Boolean, Text
 from app.db.base import Base
+
 
 class Session(Base):
     __tablename__ = "sessions"

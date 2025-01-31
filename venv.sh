@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
-source ~/.bash_profile
-DIRECTORY=.profile-fusion-api/
+source ~/.bashrc
+DIRECTORY=.profile-fusion-api
 deactivate 2> /dev/null
 if [ -d "${DIRECTORY}" ]; then
     source ${DIRECTORY}/bin/activate
