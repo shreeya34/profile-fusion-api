@@ -1,4 +1,4 @@
-from fastapi import FastAPI
+from fastapi import APIRouter, FastAPI
 # from app.routes import auth, profiles, social_links
 from app.db.session import engine
 # from app.models import user, profile, social_link
@@ -30,6 +30,14 @@ app.add_middleware(
 
 # Include Routers
 app.include_router(auth.router, prefix="/auth", tags=["Authentication"])
+
+
+router = APIRouter()
+@router.get("/test")
+async def test():
+    return {"message": "Hello World"}
+
+app.include_router(router, prefix="/test", tags=["Test"])
 # app.include_router(profiles.router, prefix="/profiles", tags=["Profiles"])
 # app.include_router(social_links.router, prefix="/social-links", tags=["Social Links"])
 
