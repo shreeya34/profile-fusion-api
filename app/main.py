@@ -6,15 +6,21 @@ from app.core.config import settings
 from fastapi.middleware.cors import CORSMiddleware
 from contextlib import asynccontextmanager
 from app.routes import auth
+from app.routes import profiles
 from app.models import user
+from app.models import profile
+from app.models import notification
 
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     # Create database tables - not convenient in production as this lacks version control for schema changes, Doesn't handle migrations/rollbacks
     user.Base.metadata.create_all(bind=engine)
+    profile.Base.metadata.create_all(bind=engine)
+    notification.Base.metadata.create_all(bind=engine)
+
+    
     yield
-    # profile.Base.metadata.create_all(bind=engine)
     # social_link.Base.metadata.create_all(bind=engine)
 
 app = FastAPI(title="Profile Fusion API", version="0.1.0",lifespan=lifespan)
@@ -38,6 +44,6 @@ async def test():
     return {"message": "Hello World"}
 
 app.include_router(router, prefix="/test", tags=["Test"])
-# app.include_router(profiles.router, prefix="/profiles", tags=["Profiles"])
+app.include_router(profiles.router, prefix="/profiles", tags=["Profiles"])
 # app.include_router(social_links.router, prefix="/social-links", tags=["Social Links"])
 
