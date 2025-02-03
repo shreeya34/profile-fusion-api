@@ -9,5 +9,5 @@ else
     source ${DIRECTORY}/bin/activate
 fi
 
-export APP_NAME="profile-fusion-api"
-export APP_ENV="dev"
+# export APP_NAME="profile-fusion-api"
+# export APP_ENV="dev"

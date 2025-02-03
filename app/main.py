@@ -1,4 +1,5 @@
 from fastapi import APIRouter, FastAPI
+from dotenv import load_dotenv
 # from app.routes import auth, profiles, social_links
 from app.db.session import engine
 # from app.models import user, profile, social_link
@@ -11,6 +12,10 @@ from app.models import user
 from app.models import profile
 from app.models import notification
 from app.routes import store
+
+
+load_dotenv()
+
 
 
 @asynccontextmanager
@@ -39,12 +44,7 @@ app.add_middleware(
 app.include_router(auth.router, prefix="/auth", tags=["Authentication"])
 
 
-router = APIRouter()
-@router.get("/test")
-async def test():
-    return {"message": "Hello World"}
 
-app.include_router(router, prefix="/test", tags=["Test"])
 app.include_router(profiles.router, prefix="/profiles", tags=["Profiles"])
 app.include_router(store.router, prefix="/store", tags=["Store"])
 
