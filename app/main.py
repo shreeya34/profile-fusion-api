@@ -10,6 +10,7 @@ from app.routes import profiles
 from app.models import user
 from app.models import profile
 from app.models import notification
+from app.routes import store
 
 
 @asynccontextmanager
@@ -45,5 +46,5 @@ async def test():
 
 app.include_router(router, prefix="/test", tags=["Test"])
 app.include_router(profiles.router, prefix="/profiles", tags=["Profiles"])
-# app.include_router(social_links.router, prefix="/social-links", tags=["Social Links"])
+app.include_router(store.router, prefix="/store", tags=["Store"])
 
