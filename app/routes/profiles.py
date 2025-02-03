@@ -10,7 +10,7 @@ from app.schemas.profile import ProfileCreate, ProfileUpdate, ProfileResponse
 router = APIRouter()
 
 # Create a profile
-@router.post("/profiles/", response_model=ProfileResponse)
+@router.get("/profiles/", response_model=ProfileResponse)
 def create_profile(profile: ProfileCreate, db: Session = Depends(get_db)):
     db_profile = Profile(**profile.dict())
     db.add(db_profile)
