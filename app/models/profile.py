@@ -11,7 +11,6 @@ class Profile(Base):
     user_id = Column(Integer, ForeignKey("users.id"))
     platform = Column(String, index=True)
     platform_id = Column(String, index=True)
-    username = Column(String, index=True)
     profile_data = Column(JSONB)  
     social_links = Column(JSONB)  
     created_at = Column(DateTime, default=datetime.utcnow)  

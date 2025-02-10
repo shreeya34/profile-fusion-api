@@ -46,5 +46,5 @@ app.include_router(auth.router, prefix="/auth", tags=["Authentication"])
 
 
 app.include_router(profiles.router, prefix="/profiles", tags=["Profiles"])
-app.include_router(store.router, prefix="/store", tags=["Store"])
+app.include_router(store.router, prefix="/stores", tags=["Stores"])
 
