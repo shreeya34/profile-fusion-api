@@ -6,7 +6,6 @@ from typing import Optional, Dict
 class ProfileBase(BaseModel):
     platform: str
     platform_id: str
-    username: str
     profile_data: Dict  
     social_links: Dict
 
@@ -17,7 +16,6 @@ class ProfileCreate(ProfileBase):
 class ProfileUpdate(BaseModel):
     platform: Optional[str] = None
     platform_id: Optional[str] = None
-    username: Optional[str] = None
     profile_data: Optional[Dict] = None
     social_links: Optional[Dict] = None
 

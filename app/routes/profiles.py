@@ -15,19 +15,19 @@ def get_profile_or_404(profile_id: int, db: Session):
     return db_profile
 
 # Create a social media profile
-@router.post("/profiles/", response_model=ProfileResponse)
+@router.post("/", response_model=ProfileResponse)
 def create_profile(profile: ProfileCreate, db: Session = Depends(get_db)):
     """
     Create a new social media links profile.
     """
     db_profile = Profile(**profile.dict())
+    print(db_profile)
     db.add(db_profile)
     db.commit()
     db.refresh(db_profile)
     return db_profile
 
-# List all social media profiles
-@router.get("/profiles/", response_model=List[ProfileResponse])
+@router.get("/", response_model=List[ProfileResponse])
 def list_profiles(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
     """
     List all social media profiles with pagination.

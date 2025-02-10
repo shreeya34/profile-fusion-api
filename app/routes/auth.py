@@ -40,4 +40,11 @@ async def create_user(user: UserCreate, db: Session = Depends(get_db)):
 
    
         return UserService.create_user(db, user)
+
+@router.get("/exists",tags=['users'])
+async def link_exists(username:str,db:Session=Depends(get_db)):
+    user=UserService.get_user_by_username(db,username)
+    if user:
+        return {"success":False,"message":"Username already exists"}
+    return {"success":True,"message":f"Username {username} is available"}
     
