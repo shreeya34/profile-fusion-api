@@ -1,9 +1,14 @@
-from pydantic import BaseModel, EmailStr
+from pydantic import BaseModel, EmailStr, validator
+import uuid
 
 class UserCreate(BaseModel):
-    username: str
     email: EmailStr
     password: str
+    username: str = None  # Allow username to be None
+
+    @validator("username", pre=True, always=True)
+    def set_default_username(cls, v):
+        return v or f"user_{uuid.uuid4().hex[:8]}"  # Auto-generate if missing
 
 class UserOut(BaseModel):
     email: EmailStr

@@ -1,3 +1,4 @@
+import uuid
 from fastapi import APIRouter, Depends, HTTPException, status
 from fastapi.security import OAuth2PasswordRequestForm
 from sqlalchemy.orm import Session
@@ -27,17 +28,21 @@ async def login(
 
 @router.post("/signup", response_model=UserOut)
 async def create_user(user: UserCreate, db: Session = Depends(get_db)):
-        if UserService.get_user_by_username(db, user.username):
-            raise HTTPException(
-                status_code=status.HTTP_400_BAD_REQUEST,
-                detail="Username already taken",
-        )
+    try:
+        # If username is missing, generate a unique one
+        user.username = user.username or f"user_{uuid.uuid4().hex[:8]}"
+
+        # Check if the generated username already exists
+        while UserService.get_user_by_username(db, user.username):
+            user.username = f"user_{uuid.uuid4().hex[:8]}"  # Generate another one
+
         if UserService.get_user_by_email(db, user.email):
-            raise HTTPException(
-                status_code=status.HTTP_400_BAD_REQUEST,
-                detail="Email already registered",
-        )
+            raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Email already registered")
+
         return UserService.create_user(db, user)
+
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
 
 @router.get("/exists",tags=['users'])
 async def link_exists(username:str,db:Session=Depends(get_db)):
