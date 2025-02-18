@@ -1,11 +1,10 @@
 from pydantic import BaseModel, HttpUrl, validator
 from typing import Optional, Dict
-from datetime import datetime
 
 class ProfileCreate(BaseModel):
     first_name: str
     last_name: str
-    social_links: Optional[Dict[str, str]] = None 
+    social_links: Optional[Dict[str, str]] = None  # Example: {"github": "https://github.com/user"}
     website_link: Optional[HttpUrl] = None  
 
     @validator("social_links")
