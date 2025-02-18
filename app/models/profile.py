@@ -12,6 +12,6 @@ class Profile(Base):
     first_name = Column(String, index=True)
     last_name = Column(String, index=True)
     social_links = Column(JSONB)  
-    website_link = Column(String)
+    website_link = Column(JSONB)
     created_at = Column(DateTime, default=datetime.utcnow)  
     updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
