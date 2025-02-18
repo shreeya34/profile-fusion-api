@@ -9,9 +9,9 @@ class Profile(Base):
     __tablename__ = "profiles"
     id = Column(Integer, primary_key=True, index=True)
     user_id = Column(Integer, ForeignKey("users.id"))
-    platform = Column(String, index=True)
-    platform_id = Column(String, index=True)
-    profile_data = Column(JSONB)  
+    first_name = Column(String, index=True)
+    last_name = Column(String, index=True)
     social_links = Column(JSONB)  
+    website_link = Column(String)
     created_at = Column(DateTime, default=datetime.utcnow)  
     updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)

@@ -1,30 +1,17 @@
-from pydantic import BaseModel
-from datetime import datetime
+from pydantic import BaseModel, HttpUrl, validator
 from typing import Optional, Dict
+from datetime import datetime
 
-# Base model for common fields
-class ProfileBase(BaseModel):
-    platform: str
-    platform_id: str
-    profile_data: Dict  
-    social_links: Dict
+class ProfileCreate(BaseModel):
+    first_name: str
+    last_name: str
+    social_links: Optional[Dict[str, str]] = None 
+    website_link: Optional[HttpUrl] = None  
 
-# Model for creating a profile
-class ProfileCreate(ProfileBase):
-    user_id: int  # Required for creating a profile
-
-class ProfileUpdate(BaseModel):
-    platform: Optional[str] = None
-    platform_id: Optional[str] = None
-    profile_data: Optional[Dict] = None
-    social_links: Optional[Dict] = None
-
-# Model for API responses
-class ProfileResponse(ProfileBase):
-    id: int
-    user_id: int
-    created_at: datetime
-    updated_at: datetime
-
-    class Config:
-        orm_mode = True  # Enable ORM mode for SQLAlchemy compatibility
+    @validator("social_links")
+    def validate_social_links(cls, v):
+        if v:
+            for key, url in v.items():
+                if not isinstance(url, str) or not url.startswith("http"):
+                    raise ValueError(f"Invalid URL for {key}")
+        return v
