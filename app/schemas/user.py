@@ -4,7 +4,7 @@ import uuid
 class UserCreate(BaseModel):
     email: EmailStr
     password: str
-    username: str = None  # Allow username to be None
+    username: str = None  
 
     @validator("username", pre=True, always=True)
     def set_default_username(cls, v):

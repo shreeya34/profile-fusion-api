@@ -4,10 +4,6 @@ from app.schemas.profiles import ProfileCreate
 
 class ProfileService:
     @staticmethod
-    def get_profile_by_user_id(db: Session, user_id: int):
-        return db.query(Profile).filter(Profile.user_id == user_id).first()
-
-    @staticmethod
     def create_profile(db: Session, user_id: int, profile_data: ProfileCreate):
         new_profile = Profile(
             user_id=user_id,
@@ -20,3 +16,7 @@ class ProfileService:
         db.commit()
         db.refresh(new_profile)
         return new_profile
+    
+    @staticmethod
+    def get_profile_by_user_id(db: Session, user_id: int):
+        return db.query(Profile).filter(Profile.user_id == user_id).first()
